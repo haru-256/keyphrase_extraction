@@ -4,6 +4,17 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+notebook = "*"
+six = "*"
+spacy = "*"
+nltk = "*"
+networkx = "*"
+numpy = "*"
+scipy = "*"
+scikit-learn = "*"
+future = "*"
+joblib = "*"
+Unidecode = "*"
 
 [dev-packages]
 
