@@ -15,6 +15,7 @@ scikit-learn = "*"
 future = "*"
 joblib = "*"
 Unidecode = "*"
+matplotlib = "*"
 
 [dev-packages]
 
