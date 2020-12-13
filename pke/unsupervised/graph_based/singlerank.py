@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # Author: Florian Boudin
 # Date: 09-11-2018
-
 """SingleRank keyphrase extraction model.
 
 Simple extension of the TextRank model described in:
@@ -49,8 +48,7 @@ class SingleRank(TextRank):
         #    computed using random walk. In the graph, nodes are words of
         #    certain part-of-speech (nouns and adjectives) that are connected if
         #    they occur in a window of 10 words.
-        extractor.candidate_weighting(window=10,
-                                      pos=pos)
+        extractor.candidate_weighting(window=10, pos=pos)
 
         # 5. get the 10-highest scored candidates as keyphrases
         keyphrases = extractor.get_n_best(n=10)
@@ -81,11 +79,14 @@ class SingleRank(TextRank):
         """
 
         if pos is None:
-            pos = {'NOUN', 'PROPN', 'ADJ'}
+            pos = {"NOUN", "PROPN", "ADJ"}
 
         # flatten document as a sequence of (word, pass_syntactic_filter) tuples
-        text = [(word, sentence.pos[i] in pos) for sentence in self.sentences
-                for i, word in enumerate(sentence.stems)]
+        text = [
+            (word, sentence.pos[i] in pos)
+            for sentence in self.sentences
+            for i, word in enumerate(sentence.stems)
+        ]
 
         # add nodes to the graph
         self.graph.add_nodes_from([word for word, valid in text if valid])
@@ -102,7 +103,7 @@ class SingleRank(TextRank):
                 if is_in_graph2 and node1 != node2:
                     if not self.graph.has_edge(node1, node2):
                         self.graph.add_edge(node1, node2, weight=0.0)
-                    self.graph[node1][node2]['weight'] += 1.0
+                    self.graph[node1][node2]["weight"] += 1.0
 
     def candidate_weighting(self, window=10, pos=None, normalized=False):
         """Keyphrase candidate ranking using the weighted variant of the
@@ -119,16 +120,13 @@ class SingleRank(TextRank):
         """
 
         if pos is None:
-            pos = {'NOUN', 'PROPN', 'ADJ'}
+            pos = {"NOUN", "PROPN", "ADJ"}
 
         # build the word graph
         self.build_word_graph(window=window, pos=pos)
 
         # compute the word scores using random walk
-        w = nx.pagerank_scipy(self.graph,
-                              alpha=0.85,
-                              tol=0.0001,
-                              weight='weight')
+        w = nx.pagerank_scipy(self.graph, alpha=0.85, tol=0.0001, weight="weight")
 
         # loop through the candidates
         for k in self.candidates.keys():
@@ -138,4 +136,4 @@ class SingleRank(TextRank):
                 self.weights[k] /= len(tokens)
 
             # use position to break ties
-            self.weights[k] += (self.candidates[k].offsets[0] * 1e-8)
+            self.weights[k] += self.candidates[k].offsets[0] * 1e-8

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # Authors: Ygor Gallina, Florian Boudin
 # Date: 10-18-2018
-
 """TextRank keyphrase extraction model.
 
 Implementation of the TextRank model for keyword extraction described in:
@@ -62,7 +61,6 @@ class TextRank(LoadFile):
         # 4. get the 10-highest scored candidates as keyphrases
         keyphrases = extractor.get_n_best(n=10)
     """
-
     def __init__(self):
         """Redefining initializer for TextRank."""
 
@@ -161,8 +159,8 @@ class TextRank(LoadFile):
         if top_percent is not None:
 
             # warn user as this is not the pke way of doing it
-            logging.warning("Candidates are generated using {}-top".format(
-                            top_percent))
+            logging.warning(
+                "Candidates are generated using {}-top".format(top_percent))
 
             # computing the number of top keywords
             nb_nodes = self.graph.number_of_nodes()
@@ -182,4 +180,4 @@ class TextRank(LoadFile):
                 self.weights[k] /= len(tokens)
 
             # use position to break ties
-            self.weights[k] += (self.candidates[k].offsets[0]*1e-8)
+            self.weights[k] += (self.candidates[k].offsets[0] * 1e-8)

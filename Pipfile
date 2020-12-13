@@ -16,8 +16,15 @@ future = "*"
 joblib = "*"
 Unidecode = "*"
 matplotlib = "*"
+yapf = "*"
+pip = "*"
+black = "*"
+pandas = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
