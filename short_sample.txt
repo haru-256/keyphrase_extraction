@@ -1,0 +1,3 @@
+Compatibility of systems of linear constraints over the set of natural numbers.
+Criteria of compatibility of a system of linear Diophantine equations, strict
+inequations, and nonstrict inequations are considered.
